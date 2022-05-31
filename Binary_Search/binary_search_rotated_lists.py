@@ -3,6 +3,8 @@ import math
 def count_rotations_linear(nums: list)-> int:
     assert isinstance(nums, list), 'Nums is not an instance of list'
 
+    if (any(elem is None for elem in nums)):
+        return 0
     position = 0
 
     while position < len(nums):
@@ -10,12 +12,16 @@ def count_rotations_linear(nums: list)-> int:
             return position
 
         position += 1
-    return -1
+    return 0
 
 
 def count_rotations_binary(nums: list)-> int:
-    lo, hi = 0, len(nums) - 1
+    assert isinstance(nums, list), 'cards is not an instance of nums'
+    
+    if (any(elem is None for elem in nums)):
+        return 0
 
+    lo, hi = 0, len(nums) - 1
     iteration_no = 1
 
     while lo <= hi:
@@ -27,13 +33,13 @@ def count_rotations_binary(nums: list)-> int:
 
         if mid_index > 0 and nums[mid_index] < nums[mid_index - 1]:
             return mid_index
-        elif nums[mid_index] > nums[mid_index - 1]:
+        elif nums[mid_index] < nums[hi]:
             hi = mid_index - 1
         else:
             lo = mid_index + 1
 
         iteration_no += 1
-    return -1
+    return 0
     
 if __name__ == '__main__':
 
@@ -51,7 +57,7 @@ if __name__ == '__main__':
     # A list of size 8 rotated 5 times
     tests.append({
         'input': {
-            'nums': [19, 25, 29, 32, 34, 3, 5, 6, 7, 9, 11, 14]
+            'nums': [4, 5, 6, 7, 8, 1, 2, 3]
         },
         'output': 5
     }
@@ -62,7 +68,7 @@ if __name__ == '__main__':
         'input': {
             'nums': [1, 2, 3, 4]
         },
-        'output': -1
+        'output': 0
     })
 
     # A list that was rotated just once.
@@ -84,9 +90,9 @@ if __name__ == '__main__':
     # A list that was rotated n times, where n is the size of the list
     tests.append({
         'input': {
-            'nums': [0, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+            'nums': [3, 5, 7, 8, 9, 10]
         },
-        'output': 10
+        'output': 0
     })
 
     # An empty list
@@ -94,15 +100,23 @@ if __name__ == '__main__':
         'input': {
             'nums': []
         },
-        'output': -1
+        'output': 0
     })
 
-    # A list contaiing just one element
+    # A list containing just one element
     tests.append({
         'input': {
             'nums': [1]
         },
-        'output': -1
+        'output': 0
+    })
+
+    # A list containing a None entry
+    tests.append({
+        'input': {
+            'nums': [None, 1, 2, 7]
+        },
+        'output': 0
     })
 
     print('---------------------- TEST CASES ----------------------')
