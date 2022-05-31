@@ -14,6 +14,13 @@ def binary_search(lo: int, hi: int, condition: str)-> int:
     return -1
 
 def locate_card(cards: list, query: int)-> int:
+    # integration tests
+    assert isinstance(cards, list), 'cards is not an instance of list'
+    assert isinstance(query, int), 'query is not an instance of a query'
+    
+    if (any(elem is None for elem in cards)):
+        return -1
+
     def condition(mid_index: int):
         if cards[mid_index] == query:
             if mid_index > 0 and cards[mid_index - 1] == query:

@@ -29,6 +29,9 @@ def locate_card_binary_search(cards: list, query: int)-> int:
     # integration tests
     assert isinstance(cards, list), 'cards is not an instance of list'
     assert isinstance(query, int), 'query is not an instance of a query'
+    
+    if (any(elem is None for elem in cards)):
+        return -1
 
     lo, hi = 0, len(cards) - 1
     iteration_no = 1
@@ -114,7 +117,16 @@ if __name__ == '__main__':
     tests.append({
         'input': {
             'cards': [],
-            'query': 7,
+            'query': 7
+        },
+        'output': -1
+    })
+
+    # cards contains a None entry
+    tests.append({
+        'input': {
+            'cards': [None, 1, 2, 7],
+            'query': 7
         },
         'output': -1
     })

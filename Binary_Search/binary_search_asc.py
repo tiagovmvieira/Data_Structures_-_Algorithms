@@ -21,6 +21,13 @@ def binary_search(lo: int, hi: int, condition: str)-> int:
     return -1
 
 def locate_first_position(cards: list, query: int)-> int:
+    # integration tests
+    assert isinstance(cards, list), 'cards is not an instance of list'
+    assert isinstance(query, int), 'query is not an instance of a query'
+    
+    if (any(elem is None for elem in cards)):
+        return -1    
+
     print('Locating first position...')
     def condition(mid_index: int, lo: int, hi: int)-> str:
         print('Current set of cards:', cards[lo:hi + 1])
@@ -53,7 +60,6 @@ def locate_last_position(cards: list, query: int)-> int:
 
 def first_last_position(cards: int, query: int)-> List:
     return [locate_first_position(cards, query), locate_last_position(cards, query)]
-
 
 if __name__ == '__main__':
     
@@ -121,6 +127,15 @@ if __name__ == '__main__':
             'query': 7,
         },
         'output': [-1, -1]
+    })
+    
+    # cards contains a None entry
+    tests.append({
+        'input': {
+            'cards': [None, 1, 2, 7],
+            'query': 7
+        },
+        'output': -1
     })
     
     # numbers can repeat in cards
