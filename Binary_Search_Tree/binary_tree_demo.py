@@ -45,7 +45,7 @@ class TreeNode:
 
 
 def parse_tuple(data: tuple):
-    print(data)
+    #print(data)
     if isinstance(data, tuple) and len(data) == 3:
         node = TreeNode(data[1])
         node.left = parse_tuple(data[0]) # recursion
@@ -57,7 +57,37 @@ def parse_tuple(data: tuple):
     return node
 
 def tree_to_tuple(node: TreeNode):
-    pass
+    if node.left is None and node.right is None:
+        return node.key
+    elif node.right is None and node.left is not None:
+        right = node.right
+        key = node.key
+        left = tree_to_tuple(node.left)
+        print(key, right, left)
+        return (left, key, right)
+    elif node.left is None and node.right is not None:
+        left = node.left
+        key = node.key
+        right = tree_to_tuple(node.right)
+        print(key, right, left)
+        return (left, key, right)
+
+def display_keys(node: TreeNode, space = '\t', level = 0):
+    print(node.key if node else None, level)
+    # If the node is empty
+    if node is None:
+        print(space * level + '∅')
+        return # Terminate recursion
+    
+    # If the node is a leaf
+    if node.left is None and node.right is None:
+        print(space * level + str(node.key))
+        return # Terminate recursion
+
+    # If the node has children
+    display_keys(node.right, space, level + 1) 
+    print(space * level + str(node.key))
+    display_keys(node.left, space, level + 1)
 
 if __name__ == '__main__':
     
@@ -100,13 +130,4 @@ if __name__ == '__main__':
 
     print('---------------------- BINARY TREE ----------------------')
     tree = parse_tuple(((1, 3, None), 2, ((None, 3, 4), 5, (6, 7, 8))))
-    print((tree))
-    print(tree.key)
-    print('')
-    print(tree.left.key, tree.right.key)
-    print('')
-    print(tree.left.left.key, tree.left.right, tree.right.left.key, tree.right.right.key)
-    print('')
-    print('')
-    print(tree.right.left.right.key, tree.right.right.left.key, tree.right.right.right.key)
-    
+    display_keys(tree, '  ')

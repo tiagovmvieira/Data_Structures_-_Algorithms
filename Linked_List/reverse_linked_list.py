@@ -22,6 +22,8 @@ class LinkedList():
                 current_node = current_node.next
             current_node.next = Node(value) # append
 
+    def append_by_position(self, value, position)
+
     def show_elements(self):
         current = self.head
         while current is not None:
