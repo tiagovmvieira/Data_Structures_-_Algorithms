@@ -7,7 +7,7 @@ class LinkedList:
     def __init__(self):
         self.head = None
 
-    def append(self, val):
+    def append(self, val: int):
         if self.head is None:
             self.head = Node(val)
         else:
@@ -31,7 +31,7 @@ class LinkedList:
                 i += 1
                 iterator = iterator.next
 
-    def print(self):
+    def print(self)-> str:
         if self.head is None:
             print('Linked list is empty')
             return
@@ -46,7 +46,7 @@ class LinkedList:
         linked_list_string = linked_list_string[:-3]
         print(linked_list_string)
 
-    def get_length(self):
+    def get_length(self)-> int:
         result = 0
         if self.head is None:
             return result
@@ -57,7 +57,7 @@ class LinkedList:
             iterator = iterator.next
         return result
 
-    def find_element(self, position):
+    def find_element(self, position: int)-> int:
         i = 0
         iterator = self.head 
         while iterator is not None:
@@ -66,23 +66,22 @@ class LinkedList:
             iterator = iterator.next 
             i += 1
 
-    @staticmethod
-    def print_link_list_reversed(list):
-        if list.head is None:
+    def reverse_linked_list(self): #iteratively
+        if self.head is None:
             print('Linked List is empty')
             return 
 
-        iterator = list.head
-        prev_node = Node
+        iterator = self.head
+        previous_node = None
 
-        reverser_link_list_string = ''
         while iterator is not None:
-            next_node = iterator.next
+            historic = iterator.next # storing the historic forward
+            iterator.next = previous_node # flipping the pointer
 
-            iterator.next = prev_node
-
-            prev_node = iterator
-
+            previous_node = iterator # looping
+            iterator = historic # looping
+        self.head = previous_node
+        
 if __name__ == '__main__':
 
     nodes = []
@@ -95,6 +94,7 @@ if __name__ == '__main__':
         linked_list.append(nodes[i].val)
     
     linked_list.print()
+    linked_list.find_element(2)
 
     new_node_A = Node(0)
     new_node_B = Node(99)
@@ -103,4 +103,7 @@ if __name__ == '__main__':
     linked_list.print()
 
     linked_list.append_by_position(new_node_B, 12)
+    linked_list.print()
+
+    linked_list.reverse_linked_list()
     linked_list.print()
