@@ -42,7 +42,29 @@ class TreeNode:
         self.left = None
         self.right = None
 
-def parse_tuple(data: tuple):
+    def display_keys(self, space: str = '\t', level: int = 0):
+        # print(node.key if node else None, level)
+        # If the node is empty
+        if self is None:
+            print(space * level + '∅')
+            return # Terminate recursion
+        
+        # If the node is a leaf
+        if self.left is None and self.right is None:
+            print(space * level + str(self.key))
+            return # Terminate recursion
+
+        # If the node has children
+        self.display_keys(self.right, space, level + 1) 
+        print(space * level + str(self.key))
+        self.display_keys(self.left, space, level + 1)
+
+    def traverse_in_order(self):
+        if self is None:
+            return []
+        return (self.traverse_in_order(self.left) + [self.key] + self.traverse_in_order(self.right))
+
+def parse_tuple(data: tuple)-> TreeNode:
     #print(data)
     if isinstance(data, tuple) and len(data) == 3:
         node = TreeNode(data[1])
@@ -69,23 +91,6 @@ def tree_to_tuple(node: TreeNode):
         right = tree_to_tuple(node.right)
         print(key, right, left)
         return (left, key, right)
-
-def display_keys(node: TreeNode, space: str = '\t', level: int = 0):
-    print(node.key if node else None, level)
-    # If the node is empty
-    if node is None:
-        print(space * level + '∅')
-        return # Terminate recursion
-    
-    # If the node is a leaf
-    if node.left is None and node.right is None:
-        print(space * level + str(node.key))
-        return # Terminate recursion
-
-    # If the node has children
-    display_keys(node.right, space, level + 1) 
-    print(space * level + str(node.key))
-    display_keys(node.left, space, level + 1)
 
 if __name__ == '__main__':
     
@@ -128,4 +133,8 @@ if __name__ == '__main__':
 
     print('---------------------- BINARY TREE ----------------------')
     tree = parse_tuple(((1, 3, None), 2, ((None, 3, 4), 5, (6, 7, 8))))
-    display_keys(tree, '  ')
+    tree.display_keys()
+
+    print('---------------------- TRAVERSING A BINARY TREE ----------------------')
+    print('-------------------------- INORDER TRAVERSAL -------------------------')
+    tree.traverse_in_order()
