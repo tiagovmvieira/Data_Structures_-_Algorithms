@@ -1,4 +1,3 @@
-
 class User:
     def __init__(self, username: str, name: str, email: str):
         self.username = username
@@ -34,15 +33,14 @@ class UserDatabase:
         target = self.find(user.username)
         target.name, target.email = user.name, user.email
 
-    def list_all(self):
+    def list_all(self)-> list:
         return self.users
 
 class TreeNode:
-    def __init__(self, key):
+    def __init__(self, key: int):
         self.key = key
         self.left = None
         self.right = None
-
 
 def parse_tuple(data: tuple):
     #print(data)
@@ -72,7 +70,7 @@ def tree_to_tuple(node: TreeNode):
         print(key, right, left)
         return (left, key, right)
 
-def display_keys(node: TreeNode, space = '\t', level = 0):
+def display_keys(node: TreeNode, space: str = '\t', level: int = 0):
     print(node.key if node else None, level)
     # If the node is empty
     if node is None:
