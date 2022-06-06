@@ -1,3 +1,6 @@
+from select import KQ_FILTER_AIO
+
+
 class User:
     def __init__(self, username: str, name: str, email: str):
         self.username = username
@@ -43,26 +46,36 @@ class TreeNode:
         self.right = None
 
     def display_keys(self, space: str = '\t', level: int = 0):
-        # print(node.key if node else None, level)
-        # If the node is empty
-        if self is None:
-            print(space * level + '∅')
-            return # Terminate recursion
+        #print(self.key if self else None, level)
         
         # If the node is a leaf
         if self.left is None and self.right is None:
-            print(space * level + str(self.key))
+            print(space * level + '|' + str(self.key) + '|<-')
             return # Terminate recursion
 
-        # If the node has children
-        self.display_keys(self.right, space, level + 1) 
-        print(space * level + str(self.key))
-        self.display_keys(self.left, space, level + 1)
+        # If the node has a right children
+        if self.right is not None:
+            self.right.display_keys(space, level + 1)
+        else: # if the node is empty
+            print(space * (level + 1) + '|' + '∅' + '|<-')
+
+        print(space * level + '|' + str(self.key) + '|<-')
+
+        # If the node has a left children 
+        if self.left is not None:
+            self.left.display_keys(space, level + 1)
+        else: # if the node is empty
+            print(space * (level + 1) + '|' + '∅' + '|<-')
+
+    def tree_height(self):
+        if self is None:
+            return 0
+        return 1 + max(TreeNode.tree_height(self.left) , TreeNode.tree_height(self.right))
 
     def traverse_in_order(self):
         if self is None:
             return []
-        return (self.traverse_in_order(self.left) + [self.key] + self.traverse_in_order(self.right))
+        return (TreeNode.traverse_in_order(self.left) + [self.key] + TreeNode.traverse_in_order())
 
 def parse_tuple(data: tuple)-> TreeNode:
     #print(data)
@@ -134,7 +147,12 @@ if __name__ == '__main__':
     print('---------------------- BINARY TREE ----------------------')
     tree = parse_tuple(((1, 3, None), 2, ((None, 3, 4), 5, (6, 7, 8))))
     tree.display_keys()
+    print('TREE HEIGHT:', tree.tree_height())
+    print('\n')
 
     print('---------------------- TRAVERSING A BINARY TREE ----------------------')
     print('-------------------------- INORDER TRAVERSAL -------------------------')
-    tree.traverse_in_order()
+    # print(tree.traverse_in_order())
+
+    print('---------------------- BINARY TREE ----------------------')
+    print(tree.tree_height())
