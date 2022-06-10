@@ -23,4 +23,5 @@ def is_binary_search_tree(node: TreeNode)-> tuple:
 if __name__ == '__main__':
     print('---------------------- CHECK BINARY SEARCH TREE ----------------------')
     tree = TreeNode.parse_tuple(((1, 3, None), 2, ((None, 3, 4), 5, (6, 7, 8))))
+    tree.display_keys()
     print(is_binary_search_tree(tree))

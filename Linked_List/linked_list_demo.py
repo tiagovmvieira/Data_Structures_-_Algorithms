@@ -92,7 +92,8 @@ if __name__ == '__main__':
 
     for i,j in enumerate(nodes):
         linked_list.append(nodes[i].val)
-    
+
+    print('---------------------- LINKED LIST ----------------------')
     linked_list.print()
     linked_list.find_element(2)
 
