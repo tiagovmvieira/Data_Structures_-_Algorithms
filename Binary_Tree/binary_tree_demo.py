@@ -1,41 +1,3 @@
-class User:
-    def __init__(self, username: str, name: str, email: str):
-        self.username = username
-        self.name = name
-        self.email = email
-    
-    def __repr__(self):
-        return "User(username = '{}', name='{}', email='{}')".format(self.username, self.name, self.email)
-
-    def __str__(self):
-        return self.__repr__()
-
-class UserDatabase:
-    def __init__(self):
-        self.users = []
-
-    def insert(self, user: User):
-        i = 0
-        while i < len(self.users):
-            # Find the first username greater than the new user's username
-            if self.users[i].username > user.username:
-                break
-            i += 1
-        self.users.insert(i, user) #.insert() list method
-
-    def find(self, username: str):
-        for user in self.users:
-            if user.username == username:
-                return user
-            return 'User Not Found'
-
-    def update(self, user: User):
-        target = self.find(user.username)
-        target.name, target.email = user.name, user.email
-
-    def list_all(self)-> list:
-        return self.users
-
 class TreeNode:
     def __init__(self, key: int):
         self.key = key
@@ -106,7 +68,7 @@ class TreeNode:
         return node
 
 if __name__ == '__main__':
-    
+
     print('---------------------- BINARY TREE ----------------------')
     tree = TreeNode.parse_tuple(((1, 3, None), 2, ((None, 3, 4), 5, (6, 7, 8))))
     print(tree.__str__())
