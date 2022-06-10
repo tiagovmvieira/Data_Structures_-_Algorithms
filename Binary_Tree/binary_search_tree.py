@@ -1,27 +1,21 @@
 from binary_tree_demo import TreeNode
 
-def remove_none(nums: list)-> list:
-    return [v for v in nums if v is not None]
+def is_binary_search_tree(root: TreeNode) -> bool:
 
-def is_binary_search_tree(node: TreeNode)-> tuple:
-    if node is None:
-        return True, None, None
+    def valid(node: TreeNode, left_value, right_value):
+        if node is None:
+            return True
+        if not (node.key < right_value and node.key > left_value):
+            return False
+        print('Current Tree: ', node, ', Min Value: ', left_value, ', Max Value: ', right_value)
 
-    is_bst_l, min_l, max_l = is_binary_search_tree(node.left)
-    is_bst_r, min_r, max_r = is_binary_search_tree(node.right)
-
-    is_bst_node = (is_bst_l and is_bst_r and
-                (max_l is None or node.key > max_l) and
-                (min_r is None or node.key < min_r))
-
-    min_key = min(remove_none([min_l, node.key, min_r]))
-    max_key = max(remove_none([max_l, node.key, max_r]))
-
-    print(node.key, min_key, max_key, is_bst_node)
-    return (is_bst_node, min_key, max_key)
+        return (valid(node.left, left_value, node.key) and valid(node.right, node.key, right_value))
+    return valid(root, float('-inf'), float('+inf'))
 
 if __name__ == '__main__':
     print('---------------------- CHECK BINARY SEARCH TREE ----------------------')
-    tree = TreeNode.parse_tuple(((1, 3, None), 2, ((None, 3, 4), 5, (6, 7, 8))))
+    tree = TreeNode.parse_tuple(((0, 1, None), 2, ((None, 3, 4), 5, (6, 7, 8))))
     tree.display_keys()
-    print(is_binary_search_tree(tree))
+    print('IS BINARY SEARCH TREE?', is_binary_search_tree(tree))
+    tree = TreeNode.parse_tuple(((1, 3, None), 2, ((None, 3, 4), 5, (6, 7, 8))))
+    print('IS BINARY SEARCH TREE?', is_binary_search_tree(tree))
