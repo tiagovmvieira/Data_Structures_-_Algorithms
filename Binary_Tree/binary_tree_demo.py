@@ -107,43 +107,6 @@ class TreeNode:
 
 if __name__ == '__main__':
     
-    # Test Cases
-    users = []
-    for i in range(7):
-        users.append(User('example' + str(i), 'Example' + str(i), 'example' + str(i) + '@example.com'))
-
-    print('---------------------- TEST CASES ----------------------')
-    print(*users, sep = '\n')
-    print('--------------------------------------------------------')
-    print('\n')
-
-    print('---------------------- SORTING THE INFO ON THE USERDB ----------------------')
-    database = UserDatabase()
-    for i in range(len(users)):
-        database.insert(users[i])
-    print('----------------------------------------------------------------------------')
-    print('\n')
-
-    print('---------------------- ACESSING AND UPDATING THE INFO ON THE USERDB ----------------------')
-    user = database.find(users[0].username)
-    print(user)
-    database.update(User(username = 'example0', name= 'ExampleZero', email = 'examplezero@example.com'))
-    user = database.find('example0')
-    print(user)
-    print('------------------------------------------------------------------------------------------')
-    print('\n')
-
-    print('---------------------- RETRIEVING THE LIST OF USERS ----------------------')
-    print(database.list_all())
-    print('--------------------------------------------------------------------------')
-    print('\n')
-    
-    print('---------------------- ALPHABETICALLY ORDER SORTED -----------------------')
-    database.insert(User(username = 'example7', name = 'Example7', email = 'example7@example.com'))
-    print(database.list_all())
-    print('--------------------------------------------------------------------------')
-    print('\n')
-
     print('---------------------- BINARY TREE ----------------------')
     tree = TreeNode.parse_tuple(((1, 3, None), 2, ((None, 3, 4), 5, (6, 7, 8))))
     print(tree.__str__())
