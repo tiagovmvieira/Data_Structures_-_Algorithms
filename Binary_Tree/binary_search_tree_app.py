@@ -37,19 +37,64 @@ class UserDatabase:
         return self.users
 
 class BSTNode():
-    def __init__(self, key, value = None):
+    def __init__(self, key: str, value: User = None):
         self.key = key
-        self.value = value 
+        self.value = value
         self.left = None
         self.right = None
         self.parent = None
 
+    def display_keys(self, space: str = '\t', level: int = 0):
+        #print(self.key if self else None, level)
+        # If the node is empty
+        if self is None:
+            print(space * level + '->|' + '∅' + '|')
+            return # Terminate recursion
+        
+        # If the node is a leaf
+        if self.left is None and self.right is None:
+            print(space * level + '->|' + self.key.username + '|')
+            return # Terminate recursion
+
+        # If the node has children
+        BSTNode.display_keys(self.right, space, level + 1)
+        print(space * level + '->|' + self.key.username + '|')
+        BSTNode.display_keys(self.left,space, level + 1)
+
+    def insert_bst(self, key: str, value: User):
+        print(type(self.key))
+        print(type(key))
+        if self.key is None: 
+            self.key = key
+            return
+        elif self.key.username == key:
+            print('Node already exists on the tree')
+            return
+        elif self.key.username > key:
+            if self.left:
+                self.left.insert_bst(key, value)
+            else:
+                self.left = BSTNode(key, value)
+                self.left.parent = self
+        elif self.key.username < key:
+            if self.right:
+                self.right.insert_bst(key, value)
+            else:
+                self.right = BSTNode(key, value)
+                self.right.parent = self
+
 if __name__ == '__main__':
 
     # Test Cases
-    users = []
-    for i in range(7):
-        users.append(User('example' + str(i), 'Example' + str(i), 'example' + str(i) + '@example.com'))
+    a = User('a', 'A...', 'a@example.com')
+    b = User('b', 'B...', 'b@example.com')
+    h = User('h', 'H...', 'h@example.com')
+    j = User('j', 'J...', 'j@example.com')
+    si = User('si', 'Si...', 'si@example.com')
+    so = User('so', 'So...', 'so@example.com')
+    v = User('v', 'V...', 'v@example.com')
+
+    users = [a, b, h, j, si, so, v]
 
     print('---------------------- TEST CASES ----------------------')
     print(*users, sep = '\n')
@@ -66,8 +111,8 @@ if __name__ == '__main__':
     print('---------------------- ACESSING AND UPDATING THE INFO ON THE USERDB ----------------------')
     user = database.find(users[0].username)
     print(user)
-    database.update(User(username = 'example0', name= 'ExampleZero', email = 'examplezero@example.com'))
-    user = database.find('example0')
+    database.update(User(username = 'a', name = 'Aa...', email = 'aa@example.com'))
+    user = database.find('a')
     print(user)
     print('------------------------------------------------------------------------------------------')
     print('\n')
@@ -83,5 +128,47 @@ if __name__ == '__main__':
     print('--------------------------------------------------------------------------')
     print('\n')
 
-    print('---------------------- STORING KEY-VALUE PAIRS USING BSTs ----------------------')
+    print('---------------------- STORING KEYS USING BSTs ----------------------')
+    """
+
+
+
+    tree = BSTNode(aakash)
+    tree.display_keys()
+
+    users = [biraj, hemanth, jadhesh, siddhant, sonaksh, vishal]
+
+    for user in users:
+        tree.insert_bst(user.username, user)
+
+    tree.display_keys()
+
+    for i in list:
+        tree.insert_bst(i)
+
+    tree.display_keys()
+
+    tree = BSTNode(None)
+    list = [20, 4, 30, 4, 1, 5, 6]
+    for i in list:
+        tree.insert_bst(i)
+    
+    tree.display_keys()
+
+    # print(users[0].username)
+    tree = BSTNode(users[0].username, users[0])
+    print(tree.key, tree.value)
+
+    tree.left = BSTNode(users[1].username, users[1])
+    tree.right = BSTNode(users[2].username, users[2])
+    tree.display_keys()
+    
+    tree.left.left = BSTNode(users[3].username, users[3])
+    tree.left.right = BSTNode(users[4].username, users[4])
+
+    tree.right.left = BSTNode(users[5].username, users[5])
+    tree.right.right = BSTNode(users[6].username, users[6])
+    
+    tree.display_keys()
+    """
     print('\n')
