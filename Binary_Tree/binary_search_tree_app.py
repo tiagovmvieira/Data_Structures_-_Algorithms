@@ -53,35 +53,43 @@ class BSTNode():
         
         # If the node is a leaf
         if self.left is None and self.right is None:
-            print(space * level + '->|' + self.key.username + '|')
+            print(space * level + '->|' + str(self.key) + '|')
             return # Terminate recursion
 
         # If the node has children
         BSTNode.display_keys(self.right, space, level + 1)
-        print(space * level + '->|' + self.key.username + '|')
+        print(space * level + '->|' + str(self.key) + '|')
         BSTNode.display_keys(self.left,space, level + 1)
 
     def insert_bst(self, key: str, value: User):
-        print(type(self.key))
-        print(type(key))
         if self.key is None: 
             self.key = key
-            return
-        elif self.key.username == key:
+            return None
+        elif self.key == key:
             print('Node already exists on the tree')
             return
-        elif self.key.username > key:
+        elif self.key > key:
             if self.left:
                 self.left.insert_bst(key, value)
             else:
                 self.left = BSTNode(key, value)
                 self.left.parent = self
-        elif self.key.username < key:
+        elif self.key < key:
             if self.right:
                 self.right.insert_bst(key, value)
             else:
                 self.right = BSTNode(key, value)
                 self.right.parent = self
+
+    def find_node(self, key: str):
+        if self.key is None:
+            return None
+        elif self.key == key:
+            return self
+        elif self.key > key:
+            return BSTNode.find_node(self.left, key)
+        elif self.key < key:
+            return BSTNode.find_node(self.right, key)
 
 if __name__ == '__main__':
 
@@ -94,7 +102,7 @@ if __name__ == '__main__':
     so = User('so', 'So...', 'so@example.com')
     v = User('v', 'V...', 'v@example.com')
 
-    users = [a, b, h, j, si, so, v]
+    users = [j, b, so, a, h, si, v]
 
     print('---------------------- TEST CASES ----------------------')
     print(*users, sep = '\n')
@@ -123,16 +131,26 @@ if __name__ == '__main__':
     print('\n')
     
     print('---------------------- ALPHABETICALLY ORDER SORTED -----------------------')
-    database.insert(User(username = 'example7', name = 'Example7', email = 'example7@example.com'))
+    database.insert(User(username = 'z', name = 'Z', email = 'z@example.com'))
     print(database.list_all())
     print('--------------------------------------------------------------------------')
     print('\n')
 
     print('---------------------- STORING KEYS USING BSTs ----------------------')
+    tree = BSTNode(j.username, j)
+
+    for user in users:
+        tree.insert_bst(user.username, user)
+
+    tree.display_keys()
+    print('\n')
+
+    print('---------------------- FIND NODE USING BSTs ----------------------')
+    node = tree.find_node('h')
+    print(node.key, node.value)
+    print('\n')
+
     """
-
-
-
     tree = BSTNode(aakash)
     tree.display_keys()
 
