@@ -98,6 +98,11 @@ class BSTNode():
         if target is not None:
             target.value = value
 
+    def list_all(self)-> list:
+        if self is None:
+            return []
+        return (BSTNode.list_all(self.left) + [(self.key, self.value)] + BSTNode.list_all(self.right))
+
 if __name__ == '__main__':
 
     # Test Cases
@@ -167,3 +172,6 @@ if __name__ == '__main__':
     print('\n')
 
     print('---------------------- LIST ALL THE NODES ----------------------')
+    print(tree.list_all())
+    print('----------------------------------------------------------------')
+    print('\n')
