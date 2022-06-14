@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 class User:
     def __init__(self, username: str, name: str, email: str):
         self.username = username
@@ -81,7 +83,7 @@ class BSTNode():
                 self.right = BSTNode(key, value)
                 self.right.parent = self
 
-    def find_node(self, key: str):
+    def find_node(self, key: str)-> BSTNode:
         if self.key is None:
             return None
         elif self.key == key:
@@ -90,6 +92,11 @@ class BSTNode():
             return BSTNode.find_node(self.left, key)
         elif self.key < key:
             return BSTNode.find_node(self.right, key)
+
+    def update(self, key: str, value: User):
+        target = BSTNode.find_node(self, key)
+        if target is not None:
+            target.value = value
 
 if __name__ == '__main__':
 
@@ -143,9 +150,20 @@ if __name__ == '__main__':
         tree.insert_bst(user.username, user)
 
     tree.display_keys()
+    print('---------------------------------------------------------------------')
     print('\n')
 
     print('---------------------- FIND NODE USING BSTs ----------------------')
     node = tree.find_node('h')
     print(node.key, node.value)
+    print('------------------------------------------------------------------')
     print('\n')
+
+    print('---------------------- UPDATING A NODE VALUE USING BSTs ----------------------')
+    tree.update('h', User('h', 'HJ...', 'hj@example.com'))
+    node = tree.find_node('h')
+    print(node.key, node.value)
+    print('------------------------------------------------------------------------------')
+    print('\n')
+
+    print('---------------------- LIST ALL THE NODES ----------------------')
