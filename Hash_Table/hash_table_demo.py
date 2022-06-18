@@ -14,6 +14,21 @@ class BasicHashTable:
     def __init__(self, max_hash_table_size: int):
         self.data_list = [None] * max_hash_table_size
 
+    def get_valid_index(self, index: int, key: str)-> int:
+        while True:
+            kv = self.data_list[index]
+
+            if kv is None:
+                return index
+            k, v = kv
+            if key == k:
+                return index
+
+            index += 1
+            
+            if index == len(self.data_list):
+                index = 0
+    
     def get_index(self, key: str)-> int:
         result  = 0
 
@@ -21,8 +36,10 @@ class BasicHashTable:
             a_number = ord(a_character)
             result += a_number
 
-        list_index = result % len(self.data_list)
-        return list_index
+        index = result % len(self.data_list)
+        valid_index = self.get_valid_index(index, key)
+
+        return valid_index
     
     def insert(self, key: str, value: str):
         index = self.get_index(key)
