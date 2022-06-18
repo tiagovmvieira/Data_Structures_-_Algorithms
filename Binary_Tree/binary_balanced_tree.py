@@ -1,4 +1,4 @@
-from typing import Optional, Union
+from typing import Union
 from binary_tree_demo import TreeNode
 from binary_search_tree_app import BSTNode, User
 

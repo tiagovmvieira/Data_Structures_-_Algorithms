@@ -1,5 +1,4 @@
 import math
-
 from typing import List
 
 def binary_search(lo: int, hi: int, condition: str)-> int:
