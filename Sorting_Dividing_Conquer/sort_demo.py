@@ -1,7 +1,5 @@
 import random
 
-from typing import Union
-
 def bubble_sort(nums: list)-> list:
     nums = list(nums)
     
@@ -25,7 +23,7 @@ def insertion_sort(nums: list)-> list:
     
     return nums
 
-def merge(nums1: Union[list, int], nums2: Union[list, int]):
+def merge(nums1: list, nums2: list):
     # List to store the results
     merged = []
 
@@ -34,7 +32,6 @@ def merge(nums1: Union[list, int], nums2: Union[list, int]):
 
     # Loop over the two lists
     while i < len(nums1) and j < len(nums2):
-
         # Include the smaller element in the result and move to the next element
         if nums1[i] <= nums2[j]:
             merged.append(nums1[i])
@@ -49,16 +46,13 @@ def merge(nums1: Union[list, int], nums2: Union[list, int]):
 
     return merged + nums1_tail + nums2_tail
 
-
-
-
 def merge_sort(nums: list)-> list:
     # Terminating condition (list of 0 or 1 elements)
     if len(nums) <= 1:
         return nums
 
     # Get the midpoint
-    mid = len(nums) / 2
+    mid = len(nums) // 2
     
     # Split
     left = nums[:mid]
@@ -67,13 +61,10 @@ def merge_sort(nums: list)-> list:
     # Solve the problem for each half recursively
     left_sorted, right_sorted = merge_sort(left), merge_sort(right)
 
-
-    pass
-
-
-
-def sort(nums):
-    pass
+    # Combine the results
+    sorted_nums = merge(left_sorted, right_sorted)
+    
+    return sorted_nums
 
 if __name__ == '__main__':
 
@@ -178,7 +169,13 @@ if __name__ == '__main__':
         print('\n')
     print('------------------------------------------------------------')
 
-
+    print('---------------------- MERGE SORT ----------------------')
+    for i, j in enumerate(tests):
+        print(f'TEST CASE {i}')
+        print(j)
+        print(merge_sort(**tests[i]['input']) == tests[i]['output'])
+        print('\n')
+    print('------------------------------------------------------------')
 
 
 
