@@ -164,7 +164,7 @@ if __name__ == '__main__':
 
     print('---------------------- LOCATE CARD BINARY SEARCH ----------------------')
     for i, j in enumerate(tests):
-        print('TEST CASE')
+        print(f'TEST CASE {i}')
         print(j)
         print(locate_card_binary_search(**tests[i]['input']) == tests[i]['output'])
         print('\n')
