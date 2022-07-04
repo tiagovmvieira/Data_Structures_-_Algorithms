@@ -1,6 +1,9 @@
 import math
+from time import perf_counter
+
 
 def locate_card_brute_force(cards: list, query: int)-> int:
+    beginning = perf_counter()
     # integration tests
     assert isinstance(cards, list), 'cards is not an instance of list'
     assert isinstance(query, int), 'query is not an instance of a query'
@@ -8,6 +11,7 @@ def locate_card_brute_force(cards: list, query: int)-> int:
     position = 0
     while position < len(cards):
         if cards[position] == query:
+            end = perf_counter()
             return position
         position += 1
     return -1
@@ -155,14 +159,18 @@ if __name__ == '__main__':
     print('\n')
 
     print('---------------------- LOCATE CARD BRUTE FORCE ----------------------')
+    beginning = perf_counter()
     for i, j in enumerate(tests):
         print('TEST CASE')
         print(j)
         print(locate_card_brute_force(**tests[i]['input']) == tests[i]['output'])
         print('\n')
+    end = perf_counter()
+    print(f'TIME ESTIMATION {end - beginning}s')
     print('--------------------------------------------------------')
 
     print('---------------------- LOCATE CARD BINARY SEARCH ----------------------')
+    
     for i, j in enumerate(tests):
         print(f'TEST CASE {i}')
         print(j)
