@@ -24,11 +24,9 @@ def insertion_sort(nums: list)-> list:
     return nums
 
 def merge(nums1: list, nums2: list):
-    # List to store the results
-    merged = []
 
-    # Indices for iteration
-    i, j = 0, 0
+    # Indices for iteration and list to store the results
+    i, j, merged = 0, 0, []
 
     # Loop over the two lists
     while i < len(nums1) and j < len(nums2):
@@ -66,8 +64,34 @@ def merge_sort(nums: list)-> list:
     
     return sorted_nums
 
-if __name__ == '__main__':
+def partition(nums, start = 0, end = None):
+    print('partition', nums, start, end)
+    if end is None:
+        end = len(nums) - 1
 
+
+def quick_sort(nums: list, start: int = 0, end: None = None)-> list:
+    print('quicksort', nums, start, end)
+    if end is None:
+        nums = list(nums)
+        end = len(nums) - 1
+
+    if start < end:
+        pivot 
+
+
+    # Terminating condition (list of 0 or 1 elements)
+    if len(nums) <= 1:
+        return nums
+
+    # Pick a random element from the list
+    random_element = random.choice(nums)
+    
+
+
+
+if __name__ == '__main__':
+    ''''''
     ## Initial test case
     # List of numbers in random order
     test_case = {
@@ -176,6 +200,9 @@ if __name__ == '__main__':
         print(merge_sort(**tests[i]['input']) == tests[i]['output'])
         print('\n')
     print('------------------------------------------------------------')
+
+    print('---------------------- QUICK SORT ----------------------')
+
 
 
 
