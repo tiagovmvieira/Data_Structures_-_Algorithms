@@ -153,4 +153,4 @@ if __name__ == '__main__':
 
     print(colored('---------------------- DELETE THE QUEUE ----------------------', 'red'))
     custom_queue.delete()
-    print('Custom Queue: ', custom_queue)§
+    print('Custom Queue: ', custom_queue)
