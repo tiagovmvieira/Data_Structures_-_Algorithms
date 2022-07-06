@@ -109,14 +109,14 @@ class StackLinkedList:
         node.next = self.linked_list.head
         self.linked_list.head = node
 
-    def pop(self)-> Union[str, int]:
+    def pop(self)-> Union[str, float]:
         if self.is_empty():
             return 'There is not any element on the Stack'
         node_value = self.linked_list.head.value
         self.linked_list.head = self.linked_list.head.next
         return node_value
 
-    def peek(self)-> Union[str, int]:
+    def peek(self)-> Union[str, float]:
         if self.is_empty():
             return 'There is not any element on the Stack'
         node_value = self.linked_list.head.value
