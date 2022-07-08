@@ -79,6 +79,9 @@ class Node:
         self.value = val
         self.next = None
 
+    def __str__(self)-> str:
+        return str(self.value)
+
 class LinkedList:
     def __init__(self):
         self.head = None
