@@ -97,6 +97,69 @@ class CircularQueue:
         self.start = -1
         self.top = -1
     
+class Node:
+    def __init__(self, val = None):
+        self.value = val
+        self.next = None
+
+    def __str__(self)-> str:
+        return str(self.value)
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    def __iter__(self):
+        iterator = self.head
+        while iterator is not None:
+            yield iterator
+            iterator = iterator.next
+
+class QueueLinkedList():
+    def __init__(self):
+        self.linked_list = LinkedList()
+
+    def __str__(self)-> str:
+        if self.linked_list.head is None:
+            return 'There is not any Queue to return'
+        values = [str(val) for val in self.linked_list]
+        return ' '.join(values)
+
+    def is_empty(self)-> bool:
+        if self.linked_list.head is None:
+            return True
+        return False
+    
+    def enqueue(self, value: float):
+        node = Node(value)
+        if self.is_empty():
+            self.linked_list.head = node
+            self.linked_list.tail = node
+        else:
+            self.linked_list.tail.next = node
+            self.linked_list.tail = node
+
+    def dequeue(self)-> Union[str, float]:
+        if self.is_empty():
+            return 'There is not any node on the Queue'
+        temp_node = self.linked_list.head
+        if temp_node.next is None:
+            self.linked_list.head = None
+            self.linked_list.tail = None
+        else:
+            self.linked_list.head = self.linked_list.head.next
+        return temp_node
+ 
+    def peek(self)-> Union[str, float]:
+        if self.is_empty():
+            return 'There is not any node on the Queue'
+        return self.linked_list.head
+
+    def delete(self):
+        self.linked_list.head = None
+        self.linked_list.tail = None
+
 if __name__ == '__main__':
     print(colored('---------------------- QUEUE ----------------------', 'red'))
     print(colored('---------------------- LIMITLESS QUEUE LIST IMPLEMENTATION ----------------------', 'red'))
@@ -146,6 +209,30 @@ if __name__ == '__main__':
     print(colored('---------------------- ENQUEUE ----------------------', 'red'))
     for i in range(custom_queue.max_size // 2):
         custom_queue.enqueue(i)
+    print('Custom Queue: ', custom_queue)
+
+    print(colored('---------------------- PEEK THE FIRST ELEMENT FROM THE QUEUE  ----------------------', 'red'))
+    print(custom_queue.peek())
+
+    print(colored('---------------------- DELETE THE QUEUE ----------------------', 'red'))
+    custom_queue.delete()
+    print('Custom Queue: ', custom_queue)
+    print('\n')
+
+    print(colored('---------------------- LIMITLESS QUEUE LINKED LIST IMPLEMENTATION ----------------------', 'red'))
+    custom_queue = QueueLinkedList()
+
+    print(colored('---------------------- CHECK IF QUEUE IS EMPTY ----------------------', 'red'))
+    print(custom_queue.is_empty())
+    print('Custom Queue: ', custom_queue)
+
+    print(colored('---------------------- ENQUEUE ----------------------', 'red'))
+    for i in range(11):
+        custom_queue.enqueue(i)
+    print('Custom Queue: ', custom_queue)
+
+    print(colored('---------------------- DEQUEUE ----------------------', 'red'))
+    print(custom_queue.dequeue())
     print('Custom Queue: ', custom_queue)
 
     print(colored('---------------------- PEEK THE FIRST ELEMENT FROM THE QUEUE  ----------------------', 'red'))
