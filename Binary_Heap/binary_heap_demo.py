@@ -1,3 +1,4 @@
+from termcolor import colored
 
 class Heap:
     def __init__(self, size: int):
@@ -5,12 +6,12 @@ class Heap:
         self.heap_size = 0
         self.max_size = size + 1
 
-def peek_of_heap(root_node: Heap):
+def peek_of_heap(root_node: Heap)-> float:
     if root_node is None:
         return None
     return root_node.custom_list[1] 
 
-def size_of_heap(root_node: Heap):
+def size_of_heap(root_node: Heap)-> int:
     if root_node is None:
         return None
     return root_node.heap_size 
@@ -112,17 +113,23 @@ def delete_entire_bp(root_node):
     root_node.custom_list = None
 
 if __name__ == '__main__':
-    new_binary_heap = Heap(5)
+    print(colored('---------------------- BINARY HEAP ----------------------', 'red'))
+    binary_heap = Heap(5)
 
-    insert_node(new_binary_heap, 4, 'Max')
-    insert_node(new_binary_heap, 5, 'Max')
-    insert_node(new_binary_heap, 2, 'Max')
-    insert_node(new_binary_heap, 1, 'Max')
+    print(colored('---------------- CHECK IF HEAP IS EMPTY -----------------', 'red'))
+    print('Is heap empty?', is_empty(binary_heap))
 
+    print(colored('-------------------- CHECK HEAP SIZE --------------------', 'red'))
+    print(size_of_heap(binary_heap))
 
-    for i in range(10):
-        print(insert_node(new_binary_heap, i, 'Max'))
+    print(colored('------------------ HEAP NODE INSERTION ------------------', 'red'))
+    print(insert_node(binary_heap, 1, 'Max'))
+    print(insert_node(binary_heap, 4, 'Max'))
+    print(insert_node(binary_heap, 5, 'Max'))
+    print(insert_node(binary_heap, 3, 'Max'))
+    print(insert_node(binary_heap, 2, 'Max'))
 
-    print(size_of_heap(new_binary_heap))
-    delete_entire_bp(new_binary_heap)
-    level_order_traversal(new_binary_heap) 
+    print(colored('--------------------- PEEK OF HEAP ---------------------', 'red'))
+    print(peek_of_heap(binary_heap))
+    print(colored('----------------- LEVEL ORDER TRAVERSAL -----------------', 'red'))
+    level_order_traversal(binary_heap)
