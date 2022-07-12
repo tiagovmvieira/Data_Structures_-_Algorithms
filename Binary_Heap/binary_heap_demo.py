@@ -19,7 +19,7 @@ def size_of_heap(root_node: Heap)-> int:
 def level_order_traversal(root_node: Heap)-> float:
     if root_node is None:
         return None
-    for i in range(1, root_node.heap_size - 1):
+    for i in range(1, root_node.heap_size + 1):
         print(root_node.custom_list[i])
 
 def is_full(root_node: Heap)-> bool:
@@ -109,8 +109,9 @@ def extract_node(root_node: Heap, heap_type: str)-> float:
         heapify_tree_extract(root_node, 1, heap_type)
         return extracted_node
 
-def delete_entire_bp(root_node):
+def delete_entire_bp(root_node)-> str:
     root_node.custom_list = None
+    return 'Binary Heap deleted'
 
 if __name__ == '__main__':
     print(colored('---------------------- BINARY HEAP ----------------------', 'red'))
@@ -129,7 +130,17 @@ if __name__ == '__main__':
     print(insert_node(binary_heap, 3, 'Max'))
     print(insert_node(binary_heap, 2, 'Max'))
 
-    print(colored('--------------------- PEEK OF HEAP ---------------------', 'red'))
-    print(peek_of_heap(binary_heap))
     print(colored('----------------- LEVEL ORDER TRAVERSAL -----------------', 'red'))
     level_order_traversal(binary_heap)
+
+    print(colored('----------------- CHECK IF HEAP IS FULL -----------------', 'red'))
+    print('Is heap full?', is_full(binary_heap))
+
+    print(colored('--------------------- PEEK OF HEAP ----------------------', 'red'))
+    print(peek_of_heap(binary_heap))
+
+    print(colored('----------------- HEAP NODE EXTRACTION ------------------', 'red'))
+    print(extract_node(binary_heap, 'Max'))
+
+    print(colored('------------------ DELETE BINARY HEAP -------------------', 'red'))
+    print(delete_entire_bp(binary_heap))
