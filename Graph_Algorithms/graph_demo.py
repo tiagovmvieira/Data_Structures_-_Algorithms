@@ -19,12 +19,12 @@ if __name__ == '__main__':
     print(colored('---------------------- GRAPH ----------------------', 'red'))
     graph = Graph()
 
-    print(colored('---------------------- EDGE TO AN EMPTY GRAPH ----------------------', 'red'))
+    print(colored('------------- EDGE TO AN EMPTY GRAPH --------------', 'red'))
     graph.add_edge('A', 'B')
     graph.add_edge('A', 'C')
     print(graph)
 
-    print(colored('---------------------- EDGE TO AN EXISTING GRAPH ----------------------', 'red'))
+    print(colored('------------ EDGE TO AN EXISTING GRAPH ------------', 'red'))
     custom_dict = { "a": ["b", "c"],
                     "b": ["a", "d", "e"],
                     "c": ["a", "e"],
