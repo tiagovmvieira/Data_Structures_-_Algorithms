@@ -15,6 +15,29 @@ class Graph():
         except KeyError:
             self.graph_dictionary[vertex] = [edge]
 
+    def bfs(self, vertex: str):
+        visited = [vertex]
+        queue = [vertex]
+        while queue:
+            dequeue_vertex = queue.pop(0) # dequeue first element
+            print(dequeue_vertex)
+            for adjacent_vertex in self.graph_dictionary.get(dequeue_vertex):
+                if adjacent_vertex not in visited:
+                    visited.append(adjacent_vertex)
+                    queue.append(adjacent_vertex)
+
+    def dfs(self, vertex: str):
+        visited = [vertex]
+        stack = [vertex]
+        while stack:
+            pop_vertex = stack.pop() # pop last element
+            print(pop_vertex)
+            for adjacent_vertex in self.graph_dictionary.get(pop_vertex):
+                if adjacent_vertex not in visited:
+                    visited.append(adjacent_vertex)
+                    stack.append(adjacent_vertex)
+
+  
 if __name__ == '__main__':
     print(colored('---------------------- GRAPH ----------------------', 'red'))
     graph = Graph()
@@ -35,3 +58,9 @@ if __name__ == '__main__':
     new_graph = Graph(custom_dict)
     new_graph.add_edge("e", "c")
     print(new_graph)
+    
+    print(colored('------------ GRAPH BREADTH FIRST SEARCH -----------', 'red'))
+    new_graph.bfs('a')
+
+    print(colored('------------- GRAPH DEPTH FIRST SEARCH ------------', 'red'))
+    new_graph.dfs('a')
