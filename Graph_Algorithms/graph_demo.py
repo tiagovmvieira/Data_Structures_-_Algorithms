@@ -37,7 +37,25 @@ class Graph():
                     visited.append(adjacent_vertex)
                     stack.append(adjacent_vertex)
 
-  
+    def topological_sort_util(self, vertex: str, visited: list, stack: list):
+        visited.append(vertex)
+
+        for adjacent_vertex in self.graph_dictionary[vertex]:
+            if adjacent_vertex not in visited:
+                self.topological_sort_util(adjacent_vertex, visited, stack)
+
+        stack.insert(0, vertex)
+
+    def topological_sort(self)-> list:
+        visited = []
+        stack = []
+ 
+        for vertex in list(self.graph_dictionary.keys()):
+            if vertex not in visited:
+                self.topological_sort_util(vertex, visited, stack)
+
+        print(stack)
+
 if __name__ == '__main__':
     print(colored('---------------------- GRAPH ----------------------', 'red'))
     graph = Graph()
@@ -64,3 +82,16 @@ if __name__ == '__main__':
 
     print(colored('------------- GRAPH DEPTH FIRST SEARCH ------------', 'red'))
     new_graph.dfs('a')
+
+    print(colored('------------- GRAPH TOPOLOGICAL SORT --------------', 'red'))
+    topological_sort_dict = {"a": ["c"],
+                             "b": ["c", "d"],
+                             "c": ["e"],
+                             "d": ["f"],
+                             "e": ["h", "f"],
+                             "h": [],
+                             "f": ["g"],
+                             "g": []                   
+                            }
+    new_graph = Graph(topological_sort_dict)
+    new_graph.topological_sort()
