@@ -1,7 +1,6 @@
 from termcolor import colored
 from collections import defaultdict
 
-
 class Graph():
     def __init__(self, graph_dictionary: dict = None):
         if graph_dictionary is None:
@@ -67,6 +66,39 @@ def dijkstra(graph: WeightedGraph, initial_node: str)-> tuple:
 
     return visited, path
 
+class AlternativeWeightedGraph():
+    def __init__(self, vertices: list):
+        self.vertices = vertices
+        self.graph = []
+        self.nodes = []
+
+    def add_edge(self, source_node: str, destination_node: str, weight: float):
+        self.graph.append([source_node, destination_node, weight])
+
+    def add_node(self, node: str):
+        self.nodes.append(node)
+    
+    def print_solution(self, distance: dict):
+        print('Vertex Distance from Source')
+        for key, value in distance.items():
+            print('  ' + key, ' :    ', value)
+
+    def bellman_ford(self, source):
+        distance = {i: float("Inf") for i in self.nodes}
+        distance[source] = 0 #overide
+
+        for _ in range(self.vertices - 1):
+            for source, destination, weight in self.graph:
+                if distance[source] != float("Inf") and distance[source] + weight < distance[destination]:
+                    distance[destination] = distance[source] + weight 
+
+        for source, destination, weight in self.graph:
+            if distance[source] != float("Inf") and distance[source] + weight < distance[destination]:
+                print("Graph contains negative cycle")
+                return
+
+        self.print_solution(distance)
+
 if __name__ == '__main__':
     print(colored('---------------------- GRAPH ----------------------', 'red'))
     print(colored('----------- SINGLE SOURCE SHORTEST PATH -----------', 'red'))
@@ -99,7 +131,7 @@ if __name__ == '__main__':
     custom_graph.add_edge('B', 'E', 3)
     custom_graph.add_edge('B', 'D', 1)
     custom_graph.add_edge('C', 'F', 8)
-    custom_graph.add_edge('D', 'E', 4)
+    custom_graph.add_edge('D', 'E', 4) 
     custom_graph.add_edge('F', 'G', 7)
     custom_graph.add_edge('E', 'G', 9)
     print('Result', dijkstra(custom_graph, 'A'))
