@@ -57,7 +57,7 @@ class Graph():
         print(stack)
 
 if __name__ == '__main__':
-    print(colored('---------------------- GRAPH ----------------------', 'red'))
+    print(colored('----------------- GRAPH ALGORITHMS ----------------', 'red'))
     graph = Graph()
 
     print(colored('------------- EDGE TO AN EMPTY GRAPH --------------', 'red'))
