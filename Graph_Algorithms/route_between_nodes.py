@@ -10,16 +10,16 @@ class Graph():
         return str(self.graph_dictionary)
 
     def _arrange_graph(self):
-        visited_vertices = []
+        visited_nodes = []
         visited_keys = []
         for key in self.graph_dictionary:
             visited_keys.append(key)
-            visited_vertices.append(key) if key not in visited_vertices else None
+            visited_nodes.append(key) if key not in visited_nodes else None
             for value in self.graph_dictionary.get(key):
-                visited_vertices.append(value) if value not in visited_vertices else None
+                visited_nodes.append(value) if value not in visited_nodes else None
     
-        a = set(visited_keys).union(set(visited_vertices))
-        b = set(visited_keys).intersection(set(visited_vertices))
+        a = set(visited_keys).union(set(visited_nodes))
+        b = set(visited_keys).intersection(set(visited_nodes))
         c = list(a - b)
 
         auxiliar_graph = dict.fromkeys(c, [])
