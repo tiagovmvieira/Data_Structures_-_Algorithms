@@ -8,13 +8,13 @@ def create_unordered_list(lower_limit: float, upper_limit: float, duplicate_valu
     
     return unsorted_list
 
-def bubble_sort(unsorted_list: list):
+def bubble_sort(unsorted_list: list)-> list:
     for i in range(len(unsorted_list) - 1):
         for j in range(len(unsorted_list) - i - 1):
             if unsorted_list[j] > unsorted_list[j + 1]:
                 unsorted_list[j], unsorted_list[j + 1] = unsorted_list[j + 1], unsorted_list[j]
     sorted_list = unsorted_list
-    
+
     return sorted_list
 
 if __name__ == '__main__':
