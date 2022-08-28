@@ -13,8 +13,8 @@ def bubble_sort(unsorted_list: list):
         for j in range(len(unsorted_list) - i - 1):
             if unsorted_list[j] > unsorted_list[j + 1]:
                 unsorted_list[j], unsorted_list[j + 1] = unsorted_list[j + 1], unsorted_list[j]
-
-    return unsorted_list
+    sorted_list = unsorted_list
+    return sorted_list
 
 if __name__ == '__main__':
     print(colored('----------------- SORT ALGORITHMS ----------------', 'red'))
