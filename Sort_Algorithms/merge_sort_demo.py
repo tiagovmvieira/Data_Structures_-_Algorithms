@@ -24,12 +24,38 @@ def merge(unsorted_list: list, left_index: int, middle_index: int, right_index: 
     i = 0
     j = 0
     k = left_index
-
+    
+    #combining the sub-arrays in a sorted order list
     while i < n1 and j < n2:
-        pass
+        if L[i] <= R[j]:
+            unsorted_list[k] = L[i]
+            i += 1
+        else:
+            unsorted_list[k] = R[j]
+            j += 1
+        k += 1
 
-def merge_sort(unsorted_list: list)-> list:
-    pass
+    while i < n1:
+        unsorted_list[k] = L[i]
+        i += 1
+        k += 1
+
+    while j < n2:
+        unsorted_list[k] = R[j]
+        j += 1
+        k += 1
+
+    return unsorted_list
+
+def merge_sort(unsorted_list: list, left_index: int, right_index: int)-> list:
+    if left_index < right_index:
+        middle_index = (left_index + (right_index - 1)) // 2
+        merge_sort(unsorted_list, left_index, middle_index) #1st sub-array
+        merge_sort(unsorted_list, middle_index + 1, right_index) #2nd sub-array
+        merge(unsorted_list, left_index, middle_index, right_index)
+
+    return unsorted_list
+
 
 if __name__ == '__main__':
     print(colored('----------------- SORT ALGORITHMS ----------------', 'red'))
@@ -37,5 +63,6 @@ if __name__ == '__main__':
     unsorted_list = create_unsorted_list(1, 11, False)
     print('Unsorted list:', unsorted_list)
 
-    merge(unsorted_list, 0, len(unsorted_list) // 2, len(unsorted_list) - 1)
     print(colored('------------------- MERGE SORT -------------------', 'red'))
+    sorted_list = merge_sort(unsorted_list, 0, len(unsorted_list) - 1)
+    print('Sorted list:', sorted_list)
