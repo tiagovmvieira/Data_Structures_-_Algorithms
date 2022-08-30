@@ -52,7 +52,7 @@ def merge_sort(unsorted_list: list, left_index: int, right_index: int)-> list:
         middle_index = (left_index + (right_index - 1)) // 2
         merge_sort(unsorted_list, left_index, middle_index) #1st sub-array
         merge_sort(unsorted_list, middle_index + 1, right_index) #2nd sub-array
-        merge(unsorted_list, left_index, middle_index, right_index)
+        merge(unsorted_list, left_index, middle_index, right_index) #merging the sub-arrays 
 
     return unsorted_list
 
