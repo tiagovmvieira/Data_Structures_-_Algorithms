@@ -131,13 +131,13 @@ class SinglyLinkedList:
                     if iterator.next == self.tail:
                         break
                     iterator = iterator.next
-                next_node = iterator.next
-                iterator.next = next_node.next
+                iterator.next = None
+                self.tail = iterator
         elif location == 'middle': #middle
             if (self.__get_length() % 2) == 0:
                 return ValueError("location: The Singly Linked List does not contain a middle node")
             iterator = self.head
-            index = 0
+            index = 1
             while index < (self.__get_length() / 2) - 1:
                 iterator = iterator.next
                 index += 1
@@ -145,12 +145,12 @@ class SinglyLinkedList:
             iterator.next = next_node.next
         else: #specific location
             if location == 1:
-                self.delete('first')
+                self.delete_node('first')
             elif location == self.__get_length():
-                self.delete('last')
+                self.delete_node('last')
             else:
                 iterator = self.head
-                index = 0
+                index = 1
                 while index < location - 1:
                     iterator = iterator.next
                     index += 1
@@ -271,9 +271,9 @@ if __name__ == '__main__':
     linked_list.delete_node('last')
     linked_list.delete_node('first')
     linked_list.print()
-    linked_list.delete_node(2)
-    linked_list.print()
     linked_list.delete_node('middle')
+    linked_list.print()
+    linked_list.delete_node(2)
     linked_list.print()
 
     print(colored('------------------- LIST DELETION -------------------', 'red'))
