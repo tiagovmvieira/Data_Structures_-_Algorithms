@@ -1,14 +1,13 @@
-from re import S
 from termcolor import colored
 from typing import Union
 
-class Node():
+class Node:
     def __init__(self, value: int = None):
         self.value = value
         self.next = None
         self.previous = None
 
-class DoublyLinkedList():
+class DoublyLinkedList:
     def __init__(self):
         self.head = None
         self.tail = None
@@ -19,7 +18,7 @@ class DoublyLinkedList():
             yield node
             node = node.next
 
-    def _get_length(self)-> int:
+    def __get_length(self)-> int:
         if self.head is None:
             return 0
 
@@ -45,6 +44,10 @@ class DoublyLinkedList():
 
     # insertion of a node in a doubly linked list
     def insert(self, value: int, location: Union[str, int] = 'last')-> str:
+        index = isinstance(location, int)
+        if index and (location < 1 or location > self.__get_length() + 1):
+            raise ValueError(f"location: The location must be between 1 and {self.__get_length() + 1}")
+
         if self.head is None:
             return 'The Doubly Linked List does not exist'
         
@@ -60,9 +63,12 @@ class DoublyLinkedList():
             self.tail.next = node #node connection
             self.tail = node #tag
         elif location == 'middle': #middle
+            if not (self.__get_length() % 2) == 0:
+                return ValueError("location: The Singly Linked List does not contain a middle position to insert into the node")
+
             iterator = self.head
             index = 0
-            while index < (self._get_length() // 2) - 1:
+            while index < (self.__get_length() // 2) - 1:
                 iterator = iterator.next
                 index += 1
             next_node = iterator.next
@@ -70,17 +76,23 @@ class DoublyLinkedList():
             node.previous = iterator
             node.next.previous = node
             iterator.next = node
-        else: #specified location
-            iterator = self.head
-            index = 0
-            while index < location - 1:
-                iterator = iterator.next
-                index += 1
-            next_node = iterator.next
-            node.next = next_node
-            node.previous = iterator
-            node.next.previous = node
-            iterator.next = node
+        else: #specific location
+            if location == 1:
+                self.insert(node.value, 'first')
+            elif location == self.__get_length() + 1:
+                self.insert(node.value, 'last')
+            else:
+                iterator = self.head
+                index = 0
+                while index < location - 1:
+                    iterator = iterator.next
+                    index += 1
+                next_node = iterator.next
+                node.next = next_node
+                node.previous = iterator
+                node.next.previous = node
+                iterator.next = node
+
         return "The node has been successfully inserted"
 
     # traversal method in doubly linked list
@@ -123,14 +135,14 @@ class DoublyLinkedList():
             return 'The Doubly Linked List does not exist'
 
         if location == 'first': #beginning
-            if self._get_length() == 1: #only one node
+            if self.__get_length() == 1: #only one node
                 self.head = None
                 self.tail = None
             else: #more than one node 
                 self.head = self.head.next
                 self.head.previous = None
         elif location == 'last': #end
-            if self._get_length() == 1: #only one node
+            if self.__get_length() == 1: #only one node
                 self.head = None
                 self.tail = None
             else: #more than one node
@@ -139,19 +151,25 @@ class DoublyLinkedList():
         elif location == 'middle': #middle
             iterator = self.head
             index = 0
-            while index < (self._get_length() // 2) - 1:
+            while index < (self.__get_length() // 2) - 1:
                 iterator = iterator.next
                 index += 1
             iterator.next = iterator.next.next
             iterator.next.previous = iterator
-        else: #specified location
-            iterator = self.head
-            index = 0
-            while index < location - 1:
-                iterator = iterator.next
-                index += 1
-            iterator.next = iterator.next.next
-            iterator.next.previous = iterator
+        else: #specific location
+            if location == 1:
+                self.delete_node('first')
+            elif location == self.__get_length():
+                self.delete_node('last')
+            else:
+                iterator = self.head
+                index = 0
+                while index < location - 1:
+                    iterator = iterator.next
+                    index += 1
+                iterator.next = iterator.next.next
+                iterator.next.previous = iterator
+                
         return 'The node has been successfully deleted'
 
     def delete(self):
@@ -174,9 +192,9 @@ if __name__ == '__main__':
     doubly_linked_list.print()
 
     print(colored('------------------- LIST INSERTION ------------------', 'red'))
-    doubly_linked_list.insert(4, 'last')
     doubly_linked_list.insert(0, 'first')
-    doubly_linked_list.insert(3, 2)
+    doubly_linked_list.insert(3, 'last')
+    doubly_linked_list.insert(4, 4)
     doubly_linked_list.insert(2, 'middle')
     doubly_linked_list.print()
 
@@ -190,17 +208,15 @@ if __name__ == '__main__':
     print(doubly_linked_list.search(3))
 
     print(colored('---------------- DELETION OF A NODE -----------------', 'red'))
-    doubly_linked_list.insert(5, 'last')
+    doubly_linked_list.print()
     doubly_linked_list.delete_node('last')
     doubly_linked_list.delete_node('first')
     doubly_linked_list.print()
-    doubly_linked_list.delete_node(2)
     doubly_linked_list.delete_node('middle')
+    doubly_linked_list.print()
+    doubly_linked_list.delete_node(2)
     doubly_linked_list.print()
 
     print(colored('------------------- LIST DELETION -------------------', 'red'))
-    doubly_linked_list.insert(2, 'middle')
-    doubly_linked_list.print()
-
     doubly_linked_list.delete()
     doubly_linked_list.print()
