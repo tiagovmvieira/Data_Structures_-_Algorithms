@@ -87,10 +87,11 @@ class SinglyLinkedList:
     def traversal(self)-> int:
         if self.head is None:
             print("There is not any element for traversal")
-        iterator = self.head
-        while iterator is not None:
-            print(iterator.value)
-            iterator = iterator.next
+        else:
+            iterator = self.head
+            while iterator is not None:
+                print(iterator.value)
+                iterator = iterator.next
 
     # search for a node in a singly linked list
     def search(self, node_value: int)-> str:
@@ -106,13 +107,13 @@ class SinglyLinkedList:
             i += 1
         return f"There is not a node containg the value {node_value}"
 
-    def delete_node(self, location: Union[str, int] = None)-> str:
+    def delete_node(self, location: Union[str, int] = 'last')-> str:
         if self.head is None:
             return "The Singly Linked List does not exist"
         
         index = isinstance(location, int)
         if index and (location < 1 or location > self.__get_length() + 1):
-            raise ValueError(f"location : The location must be between 1 and {self.__get_length() + 1}")
+            raise ValueError(f"location: The location must be between 1 and {self.__get_length() + 1}")
 
         if location == 'first': #beginning
             if self.__get_length() == 1: #only one node
@@ -124,8 +125,14 @@ class SinglyLinkedList:
             if self.__get_length() == 1: #only one node
                 self.head = None
                 self.tail = None
-            else: # more than ones
-                self.tail = None
+            else: # more than one
+                iterator = self.head
+                while iterator is not None:
+                    if iterator.next == self.tail:
+                        break
+                    iterator = iterator.next
+                next_node = iterator.next
+                iterator.next = next_node.next
         elif location == 'middle': #middle
             if (self.__get_length() % 2) == 0:
                 return ValueError("location: The Singly Linked List does not contain a middle node")
@@ -139,7 +146,7 @@ class SinglyLinkedList:
         else: #specific location
             if location == 1:
                 self.delete('first')
-            elif location == self.__get_length() + 1:
+            elif location == self.__get_length():
                 self.delete('last')
             else:
                 iterator = self.head
