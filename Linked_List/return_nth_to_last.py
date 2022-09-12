@@ -1,4 +1,3 @@
-from re import S
 from linked_list_generic import GenericLinkedList
 from termcolor import colored
 
