@@ -1,7 +1,6 @@
 from linked_list_generic import GenericLinkedList
 from termcolor import colored
 
-import random
 """
 Quizz
 
