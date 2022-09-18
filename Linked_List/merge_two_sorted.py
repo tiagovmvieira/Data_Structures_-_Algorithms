@@ -33,8 +33,6 @@ class SolutionLinkedList(GenericLinkedList):
         while iterator_2:
             self.insert(iterator_2.value)
             iterator_2 = iterator_2.next
-        print(self)
-
 
 if __name__ == '__main__':
     print(colored('-------------------- LINKED LIST --------------------', 'red'))
@@ -53,4 +51,5 @@ if __name__ == '__main__':
 
     merged_linked_list = SolutionLinkedList()
     merged_linked_list.merge_two_lists(linked_list_1, linked_list_2)
+    print(merged_linked_list)
 
