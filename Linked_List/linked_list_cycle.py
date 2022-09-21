@@ -18,7 +18,7 @@ class SolutionLinkedList(GenericLinkedList):
         super().__init__()
 
 
-    def check_cycle(self)-> Union[Tuple[bool, int], bool]:
+    def o_n_check_cycle(self)-> bool:
         visited = set()
         
         iterator = self.head
@@ -31,6 +31,18 @@ class SolutionLinkedList(GenericLinkedList):
             iterator = iterator.next
         return False
 
+    def o_1_check_cycle(self)-> bool:
+        slow_pointer = fast_pointer = self.head
+
+        while slow_pointer and fast_pointer and fast_pointer.next: #fast_pointer.next to avoid a one node linked_list -> direct to False
+            slow_pointer = slow_pointer.next
+            fast_pointer = fast_pointer.next.next
+
+            if slow_pointer == fast_pointer:
+                return True
+        return False
+
+
 if __name__ == '__main__':
     solution_linked_list = SolutionLinkedList()
     solution_linked_list.insert(3)
@@ -38,14 +50,14 @@ if __name__ == '__main__':
     solution_linked_list.insert(0)
     solution_linked_list.insert(-4)
     solution_linked_list.tail.next = solution_linked_list.head.next
-    print(solution_linked_list.check_cycle())
+    print(solution_linked_list.o_1_check_cycle())
 
     another_linked_list = SolutionLinkedList()
     another_linked_list.insert(1)
     another_linked_list.insert(2)
     another_linked_list.tail.next = another_linked_list.head
-    print(another_linked_list.check_cycle())
+    print(another_linked_list.o_1_check_cycle())
 
     final_linked_list = SolutionLinkedList()
     final_linked_list.insert(1)
-    print(final_linked_list.check_cycle())
+    print(final_linked_list.o_1_check_cycle())
